@@ -19,23 +19,23 @@ class AIAdapter(
         aiRepository.save(entity)
     }
 
-    @Transactional
-    override fun findByUserId(userId: String): List<AIEntity> {
-        return aiRepository.findByUserIdOrderByIdAsc(userId)
-    }
+//    @Transactional
+//    override fun findByUserId(userId: String): List<AIEntity> {
+//        return aiRepository.findByUserIdOrderByIdAsc(userId)
+//    }
 
     @Transactional
-    override fun findByChatId(chatId: ObjectId): List<AIEntity> {
+    override fun findByChatId(chatId: String): List<AIEntity> {
         return aiRepository.findByChatId(chatId)
     }
 
     @Transactional
-    override fun findByPlanId(planId: Long): List<AIEntity> {
-        return aiRepository.findByPlanId(planId)
+    override fun findByPlanId(planId: Long): List<String> {
+        return aiRepository.findDistinctChatIdsByPlanId(planId)
     }
 
     @Transactional
-    override fun deleteByChatId(chatId: ObjectId) {
+    override fun deleteByChatId(chatId: String) {
         return aiRepository.deleteByChatId(chatId)
     }
 

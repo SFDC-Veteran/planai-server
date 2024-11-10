@@ -4,5 +4,5 @@ import org.bson.types.ObjectId
 
 interface AIDeletePort {
     fun deleteById(id: ObjectId)
-    fun deleteByChatId(chatId: ObjectId)
+    fun deleteByChatId(chatId: String)
 }

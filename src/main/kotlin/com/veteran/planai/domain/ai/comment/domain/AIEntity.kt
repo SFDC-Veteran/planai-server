@@ -10,7 +10,8 @@ data class AIEntity(
     @Id val id: ObjectId? = null,
     var message: String,
     var sources: List<Source>? = null,
+    var question: String,
     var userId: String,
     var planId: Long,
-    val chatId: ObjectId,
+    val chatId: String,
 )

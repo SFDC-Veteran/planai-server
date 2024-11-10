@@ -1,23 +1,23 @@
 package com.veteran.planai.domain.ai.comment.mapper
 
 import com.veteran.planai.domain.ai.comment.application.dto.AIComment
+import com.veteran.planai.domain.ai.comment.application.dto.response.QnAResponse
 import com.veteran.planai.domain.ai.comment.application.dto.response.SearchResponse
 import com.veteran.planai.domain.ai.comment.domain.AIEntity
-import org.bson.types.ObjectId
 import org.springframework.stereotype.Component
-import java.util.UUID
+import java.util.*
 
 @Component
 class AIMapper {
 
-    fun toEntity(chatId: String?,response: SearchResponse, userId: String, planId: Long): AIEntity {
+    fun toEntity(response: QnAResponse, userId: String, planId: Long): AIEntity {
         return AIEntity(
-            id = ObjectId(UUID.randomUUID().toString()),
             message = response.message,
             sources = response.sources,
+            question = response.question,
             userId = userId,
             planId = planId,
-            chatId = ObjectId(chatId?:UUID.randomUUID().toString()),
+            chatId = response.chatId
         )
     }
 
@@ -28,14 +28,26 @@ class AIMapper {
             sources = entity.sources,
             userId = entity.userId,
             planId = entity.planId,
-            chatId = entity.chatId.toString(),
+            question = entity.question,
+            chatId = entity.chatId,
         )
     }
 
-    fun toResponse(entity: AIEntity): SearchResponse {
-        return SearchResponse(
+    fun toResponse(entity: AIEntity): QnAResponse {
+        return QnAResponse(
+            question = entity.question,
             message = entity.message,
             sources = entity.sources,
+            chatId = entity.chatId,
+        )
+    }
+
+    fun toResponse(response: SearchResponse, query: String, chatId: String?): QnAResponse {
+        return QnAResponse(
+            question = query,
+            message = response.message,
+            sources = response.sources,
+            chatId = chatId?: UUID.randomUUID().toString(),
         )
     }
 

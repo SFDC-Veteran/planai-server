@@ -14,7 +14,4 @@ data class SignUpRequest(
     @JsonProperty("password")
     @field:NotBlank(message = "Password must not be blank")
     val password: String,
-    @JsonProperty("authCode")
-    @field:NotBlank(message = "Must not be blank")
-    val authCode: String,
 )
